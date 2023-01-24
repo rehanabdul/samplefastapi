@@ -3,18 +3,17 @@ from fastapi.responses import HTMLResponse
 import os
 
 app = FastAPI()
-
+hostname = os.uname()[1]
 @app.get(f'/')
 async def index():
-    return {'Message': 'Hello World...!'}
+    return f'Hello from {hostname}'
 
 @app.get('/json/{name}')
 async def index(name:int ):
-    return f'hello {name}'
+    return {'Message': f'Hello from {hostname}'}
 
 @app.get('/html/{name}', response_class=HTMLResponse)
 async def read_items(name:str):
-    hostname = os.uname()[1]
     html_content = f'''
     <html>
         <head>
